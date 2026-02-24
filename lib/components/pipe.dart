@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 
 /// Cano individual (topo ou base) dentro do PipeGroup.
 class Pipe extends PositionComponent {
+  // TODO: adicionar hitbox e lógica de colisão (parte 6)
   Pipe({required this.isTop});
 
   final bool isTop;

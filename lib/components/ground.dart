@@ -6,6 +6,7 @@ import '../game/fleppi_game.dart';
 
 /// Faixa do chão para referência visual e colisão.
 class Ground extends PositionComponent with HasGameReference<FleppiGame> {
+  // TODO: adicionar hitbox e lógica de colisão (parte 6)
   Ground({this.height = 80});
 
   @override

@@ -6,6 +6,7 @@ import '../game/fleppi_game.dart';
 
 /// Personagem principal controlado pelo jogador.
 class Bird extends PositionComponent with HasGameReference<FleppiGame> {
+  // TODO: adicionar hitbox e lógica de colisão (parte 6)
   final Paint _paint = Paint()..color = const Color(0xFFFFD54F);
   final Vector2 _basePosition = Vector2.zero();
   double _velocityY = 0;

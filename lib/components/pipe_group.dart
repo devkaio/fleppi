@@ -5,6 +5,7 @@ import 'pipe.dart';
 
 /// Grupo de canos gerados em conjunto (topo e base).
 class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
+  // TODO: integrar colisões dos pipes (parte 6)
   PipeGroup({
     required this.gap,
     required this.speed,

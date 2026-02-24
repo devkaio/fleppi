@@ -7,6 +7,11 @@ import '../components/ground.dart';
 import '../components/pipe_group.dart';
 
 class FleppiGame extends FlameGame {
+	// TODO: implementar onTapDown (parte 6)
+	// TODO: implementar incrementScore (parte 6)
+	// TODO: implementar gameOver (parte 6)
+	// TODO: implementar resetGame (parte 6)
+	// TODO: implementar gameWon (parte 6)
 	final double gravity = 900;
 	final double jumpImpulse = -320;
 	final double groundHeight = 80;
