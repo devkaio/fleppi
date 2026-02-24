@@ -18,4 +18,3 @@ class FleppiGame extends FlameGame {
 		]);
 	}
 }
-// TODO: integrar game loop e atualizar componentes com formas (parte 4)
