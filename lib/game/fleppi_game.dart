@@ -13,6 +13,10 @@ import '../components/pipe_group.dart';
 enum GameStatus { ready, playing, gameOver, won }
 
 class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
+  // TODO: revisar fluxo de estados (parte 8)
+  // TODO: ajustar regras e condições (parte 8)
+  // TODO: limpar responsabilidades dos componentes (parte 8)
+  // TODO: revisar problemas de áudio (parte 8)
   final double gravity = 900;
   final double jumpImpulse = -320;
   final double groundHeight = 80;
@@ -71,6 +75,8 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   }
 
   bool get isPlaying => status == GameStatus.playing;
+
+  // TODO: aplicar parallax somente quando estiver jogando (parte 8)
 
   @override
   void onTapDown(TapDownEvent event) {

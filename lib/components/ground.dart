@@ -5,6 +5,7 @@ import '../game/fleppi_game.dart';
 
 /// Faixa do chão para referência visual e colisão.
 class Ground extends SpriteComponent with HasGameReference<FleppiGame> {
+  // TODO: adicionar efeito parallax (parte 8)
   Ground({this.height = 80});
 
   @override

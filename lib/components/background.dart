@@ -4,6 +4,7 @@ import '../game/fleppi_game.dart';
 
 /// Fundo do jogo. Fica atrás de todos os outros componentes.
 class Background extends SpriteComponent with HasGameReference<FleppiGame> {
+  // TODO: adicionar efeito parallax (parte 8)
   @override
   Future<void> onLoad() async {
     await super.onLoad();
