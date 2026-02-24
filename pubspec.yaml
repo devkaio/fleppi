@@ -7,10 +7,10 @@ environment:
   sdk: ^3.11.0
 
 dependencies:
+  flame: ^1.35.1
+  flame_audio: ^2.11.14
   flutter:
     sdk: flutter
-  # TODO: adicionar flame
-  # TODO: adicionar flame_audio
 
 dev_dependencies:
   flutter_test:
