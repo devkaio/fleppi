@@ -1,24 +1,16 @@
-import 'dart:ui';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
 /// Cano individual (topo ou base) dentro do PipeGroup.
-class Pipe extends PositionComponent {
+class Pipe extends SpriteComponent {
   Pipe({required this.isTop});
-	// TODO: trocar forma geométrica por sprite (parte 7)
 
   final bool isTop;
-  final Paint _paint = Paint()..color = const Color(0xFF66BB6A);
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+    sprite = await Sprite.load(isTop ? 'pipe_top.png' : 'pipe_bottom.png');
     add(RectangleHitbox());
-  }
-
-  @override
-  void render(Canvas canvas) {
-    canvas.drawRect(size.toRect(), _paint);
   }
 }

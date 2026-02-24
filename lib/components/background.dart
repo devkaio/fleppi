@@ -1,18 +1,13 @@
-import 'dart:ui';
-
 import 'package:flame/components.dart';
 
 import '../game/fleppi_game.dart';
 
 /// Fundo do jogo. Fica atrás de todos os outros componentes.
-class Background extends PositionComponent with HasGameReference<FleppiGame> {
-  final Paint _paint = Paint()..color = const Color(0xFF87CEEB);
-
-  // TODO: trocar forma geométrica por sprite (parte 7)
-
+class Background extends SpriteComponent with HasGameReference<FleppiGame> {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+    sprite = await Sprite.load('background.png');
     position = Vector2.zero();
     size = game.size;
   }
@@ -23,7 +18,4 @@ class Background extends PositionComponent with HasGameReference<FleppiGame> {
     position = Vector2.zero();
     this.size = size;
   }
-
-  @override
-  void render(Canvas canvas) => canvas.drawRect(size.toRect(), _paint);
 }

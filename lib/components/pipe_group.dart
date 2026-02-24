@@ -61,10 +61,9 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
     position.x -= speed * dt;
     if (position.x + size.x < 0) {
       position.x = game.size.x + spawnXOffset;
+      game.incrementScore();
     }
   }
 
-  void reset() {
-    _positionForSize(game.size);
-  }
+  void reset() => _positionForSize(game.size);
 }

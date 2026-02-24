@@ -1,5 +1,9 @@
+import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flame/text.dart';
+import 'package:flame_audio/flame_audio.dart';
+import 'package:flutter/material.dart';
 
 import '../components/background.dart';
 import '../components/bird.dart';
@@ -9,9 +13,6 @@ import '../components/pipe_group.dart';
 enum GameStatus { ready, playing, gameOver, won }
 
 class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
-  // TODO: revisar fluxo de estados (parte 7)
-  // TODO: alinhar regras de pontuação e término (parte 7)
-  // TODO: revisar responsabilidades entre game e componentes (parte 7)
   final double gravity = 900;
   final double jumpImpulse = -320;
   final double groundHeight = 80;
@@ -31,6 +32,7 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   late final Ground ground;
   late final Bird bird;
   late final PipeGroup pipeGroup;
+  late final TextComponent scoreText;
   @override
   Future<void> onLoad() async {
     await super.onLoad();
@@ -53,6 +55,19 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
       bird,
       pipeGroup,
     ]);
+
+    scoreText = TextComponent(
+      text: '0',
+      position: Vector2(12, 12),
+      textRenderer: TextPaint(
+        style: const TextStyle(
+          fontSize: 24,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+    add(scoreText);
   }
 
   bool get isPlaying => status == GameStatus.playing;
@@ -77,11 +92,14 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   void incrementScore() {
     if (!isPlaying) return;
     score += 1;
+    scoreText.text = score.toString();
+    playScore();
   }
 
   void gameOver() {
     if (status == GameStatus.gameOver) return;
     status = GameStatus.gameOver;
+    playCrash();
   }
 
   void gameWon() {
@@ -93,5 +111,12 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
     status = GameStatus.ready;
     bird.reset();
     pipeGroup.reset();
+    scoreText.text = '0';
   }
+
+  void playFly() => FlameAudio.play('fly.wav');
+
+  void playScore() => FlameAudio.play('score.wav');
+
+  void playCrash() => FlameAudio.play('crash.wav');
 }

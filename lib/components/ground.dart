@@ -1,22 +1,19 @@
-import 'dart:ui';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
 import '../game/fleppi_game.dart';
 
 /// Faixa do chão para referência visual e colisão.
-class Ground extends PositionComponent with HasGameReference<FleppiGame> {
+class Ground extends SpriteComponent with HasGameReference<FleppiGame> {
   Ground({this.height = 80});
-	// TODO: trocar forma geométrica por sprite (parte 7)
 
   @override
   final double height;
-  final Paint _paint = Paint()..color = const Color(0xFF8D6E63);
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+    sprite = await Sprite.load('ground.png');
     _positionForSize(game.size);
     add(RectangleHitbox());
   }
@@ -31,7 +28,4 @@ class Ground extends PositionComponent with HasGameReference<FleppiGame> {
     position = Vector2(0, gameSize.y - height);
     size = Vector2(gameSize.x, height);
   }
-
-  @override
-  void render(Canvas canvas) => canvas.drawRect(size.toRect(), _paint);
 }

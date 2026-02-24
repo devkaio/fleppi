@@ -1,15 +1,11 @@
-import 'dart:ui';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
 import '../game/fleppi_game.dart';
 
 /// Personagem principal controlado pelo jogador.
-class Bird extends PositionComponent
+class Bird extends SpriteComponent
     with HasGameReference<FleppiGame>, CollisionCallbacks {
-  final Paint _paint = Paint()..color = const Color(0xFFFFD54F);
-	// TODO: trocar forma geométrica por sprite (parte 7)
   final Vector2 _basePosition = Vector2.zero();
   double _velocityY = 0;
 
@@ -18,6 +14,7 @@ class Bird extends PositionComponent
     await super.onLoad();
     anchor = Anchor.center;
     size = game.birdSize.clone();
+    sprite = await Sprite.load('bird.png');
     add(RectangleHitbox());
     _basePosition
       ..x = game.size.x * game.birdStartXFactor
@@ -55,6 +52,7 @@ class Bird extends PositionComponent
   void flap() {
     if (!game.isPlaying && game.status != GameStatus.ready) return;
     _velocityY = game.jumpImpulse;
+    game.playFly();
   }
 
   void reset() {
@@ -69,14 +67,5 @@ class Bird extends PositionComponent
   ) {
     super.onCollisionStart(intersectionPoints, other);
     game.gameOver();
-  }
-
-  @override
-  void render(Canvas canvas) {
-    final rect = size.toRect();
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(rect, const Radius.circular(6)),
-      _paint,
-    );
   }
 }
