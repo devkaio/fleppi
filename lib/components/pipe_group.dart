@@ -13,3 +13,4 @@ class PipeGroup extends PositionComponent {
 		addAll([top, bottom]);
 	}
 }
+// TODO: implementar update e render com formas geométricas (parte 4)

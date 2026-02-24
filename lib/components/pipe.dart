@@ -6,3 +6,4 @@ class Pipe extends PositionComponent {
 
 	final bool isTop;
 }
+// TODO: implementar update e render com forma geométrica (parte 4)
