@@ -5,7 +5,6 @@ import 'pipe.dart';
 
 /// Grupo de canos gerados em conjunto (topo e base).
 class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
-  // TODO: integrar colisões dos pipes (parte 6)
   PipeGroup({
     required this.gap,
     required this.speed,
@@ -20,6 +19,7 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
   final double gap;
   final double speed;
   final double groundHeight;
+  @override
   final double width;
   final double spawnXOffset;
   final double topRatio;
@@ -57,9 +57,14 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
   @override
   void update(double dt) {
     super.update(dt);
+    if (!game.isPlaying) return;
     position.x -= speed * dt;
     if (position.x + size.x < 0) {
       position.x = game.size.x + spawnXOffset;
     }
+  }
+
+  void reset() {
+    _positionForSize(game.size);
   }
 }

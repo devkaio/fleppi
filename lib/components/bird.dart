@@ -1,12 +1,13 @@
 import 'dart:ui';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
 import '../game/fleppi_game.dart';
 
 /// Personagem principal controlado pelo jogador.
-class Bird extends PositionComponent with HasGameReference<FleppiGame> {
-  // TODO: adicionar hitbox e lógica de colisão (parte 6)
+class Bird extends PositionComponent
+    with HasGameReference<FleppiGame>, CollisionCallbacks {
   final Paint _paint = Paint()..color = const Color(0xFFFFD54F);
   final Vector2 _basePosition = Vector2.zero();
   double _velocityY = 0;
@@ -16,6 +17,7 @@ class Bird extends PositionComponent with HasGameReference<FleppiGame> {
     await super.onLoad();
     anchor = Anchor.center;
     size = game.birdSize.clone();
+    add(RectangleHitbox());
     _basePosition
       ..x = game.size.x * game.birdStartXFactor
       ..y = game.size.y * game.birdStartYFactor;
@@ -28,12 +30,15 @@ class Bird extends PositionComponent with HasGameReference<FleppiGame> {
     _basePosition
       ..x = size.x * game.birdStartXFactor
       ..y = size.y * game.birdStartYFactor;
-    position = _basePosition.clone();
+    if (!game.isPlaying) {
+      position = _basePosition.clone();
+    }
   }
 
   @override
   void update(double dt) {
     super.update(dt);
+    if (!game.isPlaying) return;
     _velocityY += game.gravity * dt;
     position.y += _velocityY * dt;
 
@@ -42,7 +47,27 @@ class Bird extends PositionComponent with HasGameReference<FleppiGame> {
     if (position.y > maxY) {
       position.y = maxY;
       _velocityY = 0;
+      game.gameOver();
     }
+  }
+
+  void flap() {
+    if (!game.isPlaying && game.status != GameStatus.ready) return;
+    _velocityY = game.jumpImpulse;
+  }
+
+  void reset() {
+    _velocityY = 0;
+    position = _basePosition.clone();
+  }
+
+  @override
+  void onCollisionStart(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
+    super.onCollisionStart(intersectionPoints, other);
+    game.gameOver();
   }
 
   @override

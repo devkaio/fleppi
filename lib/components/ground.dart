@@ -1,12 +1,12 @@
 import 'dart:ui';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
 import '../game/fleppi_game.dart';
 
 /// Faixa do chão para referência visual e colisão.
 class Ground extends PositionComponent with HasGameReference<FleppiGame> {
-  // TODO: adicionar hitbox e lógica de colisão (parte 6)
   Ground({this.height = 80});
 
   @override
@@ -17,6 +17,7 @@ class Ground extends PositionComponent with HasGameReference<FleppiGame> {
   Future<void> onLoad() async {
     await super.onLoad();
     _positionForSize(game.size);
+    add(RectangleHitbox());
   }
 
   @override
