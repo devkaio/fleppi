@@ -1,2 +1,3 @@
-// TODO: criar a classe FleppiGame extendendo FlameGame
-// TODO: definir configuração inicial do jogo
+import 'package:flame/game.dart';
+
+class FleppiGame extends FlameGame {}
