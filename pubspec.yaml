@@ -19,3 +19,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  # TODO: adicionar assets e sons (parte 7)
+  # assets:
+  #   - assets/images/
+  #   - assets/audio/

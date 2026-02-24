@@ -6,6 +6,7 @@ import 'package:flame/components.dart';
 /// Cano individual (topo ou base) dentro do PipeGroup.
 class Pipe extends PositionComponent {
   Pipe({required this.isTop});
+	// TODO: trocar forma geométrica por sprite (parte 7)
 
   final bool isTop;
   final Paint _paint = Paint()..color = const Color(0xFF66BB6A);

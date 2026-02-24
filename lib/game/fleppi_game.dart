@@ -9,6 +9,9 @@ import '../components/pipe_group.dart';
 enum GameStatus { ready, playing, gameOver, won }
 
 class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
+  // TODO: revisar fluxo de estados (parte 7)
+  // TODO: alinhar regras de pontuação e término (parte 7)
+  // TODO: revisar responsabilidades entre game e componentes (parte 7)
   final double gravity = 900;
   final double jumpImpulse = -320;
   final double groundHeight = 80;

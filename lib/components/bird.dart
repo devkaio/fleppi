@@ -9,6 +9,7 @@ import '../game/fleppi_game.dart';
 class Bird extends PositionComponent
     with HasGameReference<FleppiGame>, CollisionCallbacks {
   final Paint _paint = Paint()..color = const Color(0xFFFFD54F);
+	// TODO: trocar forma geométrica por sprite (parte 7)
   final Vector2 _basePosition = Vector2.zero();
   double _velocityY = 0;
 

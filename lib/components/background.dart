@@ -8,6 +8,8 @@ import '../game/fleppi_game.dart';
 class Background extends PositionComponent with HasGameReference<FleppiGame> {
   final Paint _paint = Paint()..color = const Color(0xFF87CEEB);
 
+  // TODO: trocar forma geométrica por sprite (parte 7)
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();

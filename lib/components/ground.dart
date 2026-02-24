@@ -8,6 +8,7 @@ import '../game/fleppi_game.dart';
 /// Faixa do chão para referência visual e colisão.
 class Ground extends PositionComponent with HasGameReference<FleppiGame> {
   Ground({this.height = 80});
+	// TODO: trocar forma geométrica por sprite (parte 7)
 
   @override
   final double height;
