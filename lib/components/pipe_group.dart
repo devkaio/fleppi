@@ -5,6 +5,7 @@ import 'pipe.dart';
 
 /// Grupo de canos gerados em conjunto (topo e base).
 class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
+  // TODO: usar velocidade e espaçamento definidos no mundo (parte 5)
   PipeGroup({this.gap = 140, this.speed = 100, this.groundHeight = 80});
 
   final Pipe top = Pipe(isTop: true);

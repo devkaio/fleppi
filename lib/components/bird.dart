@@ -9,6 +9,7 @@ import '../game/fleppi_game.dart';
 class Bird extends PositionComponent with HasGameReference<FleppiGame> {
   final Paint _paint = Paint()..color = const Color(0xFFFFD54F);
   final Vector2 _basePosition = Vector2.zero();
+  	// TODO: usar gravidade e impulso definidos no mundo (parte 5)
   double _time = 0;
 
   @override
