@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flame/components.dart';
@@ -9,17 +8,16 @@ import '../game/fleppi_game.dart';
 class Bird extends PositionComponent with HasGameReference<FleppiGame> {
   final Paint _paint = Paint()..color = const Color(0xFFFFD54F);
   final Vector2 _basePosition = Vector2.zero();
-  	// TODO: usar gravidade e impulso definidos no mundo (parte 5)
-  double _time = 0;
+  double _velocityY = 0;
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
     anchor = Anchor.center;
-    size = Vector2(40, 30);
+    size = game.birdSize.clone();
     _basePosition
-      ..x = game.size.x * 0.3
-      ..y = game.size.y * 0.5;
+      ..x = game.size.x * game.birdStartXFactor
+      ..y = game.size.y * game.birdStartYFactor;
     position = _basePosition.clone();
   }
 
@@ -27,16 +25,23 @@ class Bird extends PositionComponent with HasGameReference<FleppiGame> {
   void onGameResize(Vector2 size) {
     super.onGameResize(size);
     _basePosition
-      ..x = size.x * 0.3
-      ..y = size.y * 0.5;
+      ..x = size.x * game.birdStartXFactor
+      ..y = size.y * game.birdStartYFactor;
     position = _basePosition.clone();
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    _time += dt;
-    position.y = _basePosition.y + sin(_time * 2) * 4;
+    _velocityY += game.gravity * dt;
+    position.y += _velocityY * dt;
+
+    final groundTop = game.size.y - game.groundHeight;
+    final maxY = groundTop - size.y / 2;
+    if (position.y > maxY) {
+      position.y = maxY;
+      _velocityY = 0;
+    }
   }
 
   @override

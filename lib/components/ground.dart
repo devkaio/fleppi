@@ -6,7 +6,6 @@ import '../game/fleppi_game.dart';
 
 /// Faixa do chão para referência visual e colisão.
 class Ground extends PositionComponent with HasGameReference<FleppiGame> {
-  // TODO: ajustar altura usando parâmetro do mundo (parte 5)
   Ground({this.height = 80});
 
   @override

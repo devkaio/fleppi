@@ -5,14 +5,23 @@ import 'pipe.dart';
 
 /// Grupo de canos gerados em conjunto (topo e base).
 class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
-  // TODO: usar velocidade e espaçamento definidos no mundo (parte 5)
-  PipeGroup({this.gap = 140, this.speed = 100, this.groundHeight = 80});
+  PipeGroup({
+    required this.gap,
+    required this.speed,
+    required this.groundHeight,
+    required this.width,
+    required this.spawnXOffset,
+    required this.topRatio,
+  });
 
   final Pipe top = Pipe(isTop: true);
   final Pipe bottom = Pipe(isTop: false);
   final double gap;
   final double speed;
   final double groundHeight;
+  final double width;
+  final double spawnXOffset;
+  final double topRatio;
 
   @override
   Future<void> onLoad() async {
@@ -30,11 +39,11 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
 
   void _positionForSize(Vector2 gameSize) {
     final availableHeight = gameSize.y - groundHeight;
-    final topHeight = availableHeight * 0.35;
+    final topHeight = availableHeight * topRatio;
     final bottomHeight = availableHeight - topHeight - gap;
 
-    size = Vector2(60, availableHeight);
-    position = Vector2(gameSize.x + 120, 0);
+    size = Vector2(width, availableHeight);
+    position = Vector2(gameSize.x + spawnXOffset, 0);
 
     top
       ..position = Vector2.zero()
@@ -49,7 +58,7 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
     super.update(dt);
     position.x -= speed * dt;
     if (position.x + size.x < 0) {
-      position.x = game.size.x + 120;
+      position.x = game.size.x + spawnXOffset;
     }
   }
 }
