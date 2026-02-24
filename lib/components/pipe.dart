@@ -1,2 +1,8 @@
-// TODO: definir o componente Pipe
-// TODO: descrever objetivo e relação com o FleppiGame
+import 'package:flame/components.dart';
+
+/// Cano individual (topo ou base) dentro do PipeGroup.
+class Pipe extends PositionComponent {
+	Pipe({required this.isTop});
+
+	final bool isTop;
+}

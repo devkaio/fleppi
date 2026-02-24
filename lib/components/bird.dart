@@ -1,2 +1,4 @@
-// TODO: definir o componente Bird
-// TODO: descrever objetivo e relação com o FleppiGame
+import 'package:flame/components.dart';
+
+/// Personagem principal controlado pelo jogador.
+class Bird extends PositionComponent {}

@@ -1,2 +1,4 @@
-// TODO: definir o componente Ground
-// TODO: descrever objetivo e relação com o FleppiGame
+import 'package:flame/components.dart';
+
+/// Faixa do chão para referência visual e colisão.
+class Ground extends PositionComponent {}

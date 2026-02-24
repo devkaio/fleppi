@@ -1,4 +1,20 @@
 import 'package:flame/game.dart';
 
-class FleppiGame extends FlameGame {}
-// TODO: adicionar e organizar os componentes do jogo (parte 3)
+import '../components/background.dart';
+import '../components/bird.dart';
+import '../components/ground.dart';
+import '../components/pipe_group.dart';
+
+class FleppiGame extends FlameGame {
+	@override
+	Future<void> onLoad() async {
+		await super.onLoad();
+
+		addAll([
+			Background(),
+			Ground(),
+			Bird(),
+			PipeGroup(),
+		]);
+	}
+}
