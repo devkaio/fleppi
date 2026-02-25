@@ -10,10 +10,12 @@ Revisar e alinhar a lógica do jogo.
 - Ajustar regras e condições.
 - Limpar responsabilidades dos componentes.
 - Resolver casos inesperados.
-- Revisar problemas de áudio
-- Adicionar efeito parallax no background
-- Adicionar efeito parallax no chão
-- Apenas aplicar parallax após inicio do jogo
+- Revisar problemas de áudio.
+- Ajustar pontuação no momento correto.
+- Garantir limite vertical do cano.
+- Adicionar efeito parallax no background.
+- Adicionar efeito parallax no chão.
+- Aplicar parallax apenas após início do jogo.
 
 ## Resultado esperado
 

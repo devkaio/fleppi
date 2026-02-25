@@ -6,7 +6,10 @@ class Pipe extends SpriteComponent {
   Pipe({required this.isTop});
 
   final bool isTop;
-
+  
+  // @override
+  // bool get debugMode => true;
+  
   @override
   Future<void> onLoad() async {
     await super.onLoad();

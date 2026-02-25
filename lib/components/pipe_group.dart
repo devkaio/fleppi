@@ -24,6 +24,10 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
   final double spawnXOffset;
   final double topRatio;
   bool _scored = false;
+  double _topHeight = 0;
+
+  // @override
+  // bool get debugMode => true;
 
   @override
   Future<void> onLoad() async {
@@ -43,6 +47,7 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
     final availableHeight = gameSize.y - groundHeight;
     final topHeight = availableHeight * topRatio;
     final bottomHeight = availableHeight - topHeight - gap;
+    _topHeight = topHeight;
 
     size = Vector2(width, availableHeight);
     position = Vector2(gameSize.x + spawnXOffset, 0);
@@ -60,6 +65,7 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
     super.update(dt);
     if (!game.isPlaying) return;
     position.x -= speed * dt;
+    _checkBirdVerticalLimit();
     if (!_scored && position.x + size.x < game.bird.position.x) {
       _scored = true;
       game.incrementScore();
@@ -73,5 +79,24 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
   void reset() {
     _scored = false;
     _positionForSize(game.size);
+  }
+
+  void _checkBirdVerticalLimit() {
+    final bird = game.bird;
+    final radius = bird.hitboxRadius;
+    final birdLeft = bird.position.x - radius;
+    final birdRight = bird.position.x + radius;
+    final pipeLeft = position.x;
+    final pipeRight = position.x + size.x;
+    final overlapsX = birdRight > pipeLeft && birdLeft < pipeRight;
+    if (!overlapsX) return;
+
+    final birdTop = bird.position.y - radius;
+    final birdBottom = bird.position.y + radius;
+    final gapTop = _topHeight;
+    final gapBottom = _topHeight + gap;
+    if (birdTop < gapTop || birdBottom > gapBottom) {
+      game.gameOver();
+    }
   }
 }

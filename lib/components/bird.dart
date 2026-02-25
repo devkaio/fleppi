@@ -8,6 +8,10 @@ class Bird extends SpriteComponent
     with HasGameReference<FleppiGame>, CollisionCallbacks {
   final Vector2 _basePosition = Vector2.zero();
   double _velocityY = 0;
+  late final CircleHitbox _hitbox;
+
+  // @override
+  // bool get debugMode => true;
 
   @override
   Future<void> onLoad() async {
@@ -15,7 +19,8 @@ class Bird extends SpriteComponent
     anchor = Anchor.center;
     size = game.birdSize.clone();
     sprite = await Sprite.load('bird.png');
-    add(RectangleHitbox());
+    _hitbox = CircleHitbox(isSolid: true);
+    add(_hitbox);
     _basePosition
       ..x = game.size.x * game.birdStartXFactor
       ..y = game.size.y * game.birdStartYFactor;
@@ -59,6 +64,8 @@ class Bird extends SpriteComponent
     _velocityY = 0;
     position = _basePosition.clone();
   }
+
+  double get hitboxRadius => _hitbox.radius;
 
   @override
   void onCollisionStart(

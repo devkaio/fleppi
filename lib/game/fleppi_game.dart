@@ -25,7 +25,7 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   final double pipeTopRatio = 0.35;
   final double birdStartXFactor = 0.3;
   final double birdStartYFactor = 0.5;
-  final Vector2 birdSize = Vector2(40, 30);
+  final Vector2 birdSize = Vector2(71, 50);
 
   GameStatus status = GameStatus.ready;
   int score = 0;
@@ -103,8 +103,6 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   }
 
   bool get isPlaying => status == GameStatus.playing;
-
-  // TODO: aplicar parallax somente quando estiver jogando (parte 8)
 
   @override
   void onTapDown(TapDownEvent event) {
