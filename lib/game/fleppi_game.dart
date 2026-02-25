@@ -35,6 +35,7 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   late final Bird bird;
   late final PipeGroup pipeGroup;
   late final TextComponent scoreText;
+  // TODO: criar HUD de status (win/reset/game over) (parte 9)
   late final AudioPool flyPool;
   late final AudioPool scorePool;
   late final AudioPool crashPool;
@@ -145,6 +146,8 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
     pipeGroup.reset();
     scoreText.text = '0';
   }
+
+  // TODO: adicionar HUD de win / reset (parte 9)
 
   void playFly() {
     if (!_audioReady) return;

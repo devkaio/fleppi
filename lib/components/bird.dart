@@ -6,6 +6,8 @@ import '../game/fleppi_game.dart';
 /// Personagem principal controlado pelo jogador.
 class Bird extends SpriteComponent
     with HasGameReference<FleppiGame>, CollisionCallbacks {
+  // TODO: adicionar rotação conforme sobe/desce (parte 9)
+  // TODO: adicionar animação de queda ao game over (parte 9)
   final Vector2 _basePosition = Vector2.zero();
   double _velocityY = 0;
   late final CircleHitbox _hitbox;
