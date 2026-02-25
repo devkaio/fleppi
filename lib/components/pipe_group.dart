@@ -23,6 +23,7 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
   final double width;
   final double spawnXOffset;
   final double topRatio;
+  bool _scored = false;
 
   @override
   Future<void> onLoad() async {
@@ -59,11 +60,18 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
     super.update(dt);
     if (!game.isPlaying) return;
     position.x -= speed * dt;
+    if (!_scored && position.x + size.x < game.bird.position.x) {
+      _scored = true;
+      game.incrementScore();
+    }
     if (position.x + size.x < 0) {
       position.x = game.size.x + spawnXOffset;
-      game.incrementScore();
+      _scored = false;
     }
   }
 
-  void reset() => _positionForSize(game.size);
+  void reset() {
+    _scored = false;
+    _positionForSize(game.size);
+  }
 }
