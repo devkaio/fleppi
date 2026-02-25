@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flame/text.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +34,6 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   late final Bird bird;
   late final PipeGroup pipeGroup;
   late final TextComponent scoreText;
-  // TODO: criar HUD de status (win/reset/game over) (parte 9)
   late final AudioPool flyPool;
   late final AudioPool scorePool;
   late final AudioPool crashPool;
@@ -93,6 +91,7 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
       ),
     );
     add(scoreText);
+    overlays.add('game-ready');
   }
 
   @override
@@ -108,18 +107,9 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   @override
   void onTapDown(TapDownEvent event) {
     super.onTapDown(event);
-    if (status == GameStatus.ready) {
-      status = GameStatus.playing;
+    if (status == GameStatus.playing) {
       bird.flap();
-      return;
     }
-    if (status == GameStatus.gameOver || status == GameStatus.won) {
-      resetGame();
-      status = GameStatus.playing;
-      bird.flap();
-      return;
-    }
-    bird.flap();
   }
 
   void incrementScore() {
@@ -127,6 +117,9 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
     score += 1;
     scoreText.text = score.toString();
     playScore();
+    if (score >= 999) {
+      gameWon();
+    }
   }
 
   void gameOver() {
@@ -135,8 +128,15 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
     playCrash();
   }
 
+  void showGameOverScreen() {
+    pauseEngine();
+    overlays.add('game-over');
+  }
+
   void gameWon() {
     status = GameStatus.won;
+    pauseEngine();
+    overlays.add('you-win');
   }
 
   void resetGame() {
@@ -146,8 +146,6 @@ class FleppiGame extends FlameGame with TapCallbacks, HasCollisionDetection {
     pipeGroup.reset();
     scoreText.text = '0';
   }
-
-  // TODO: adicionar HUD de win / reset (parte 9)
 
   void playFly() {
     if (!_audioReady) return;

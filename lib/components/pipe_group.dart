@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
 
 import '../game/fleppi_game.dart';
@@ -5,7 +7,6 @@ import 'pipe.dart';
 
 /// Grupo de canos gerados em conjunto (topo e base).
 class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
-  // TODO: aplicar posicionamento aleatório dos canos (parte 9)
   PipeGroup({
     required this.gap,
     required this.speed,
@@ -26,6 +27,9 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
   final double topRatio;
   bool _scored = false;
   double _topHeight = 0;
+  late final Random _random;
+  static const double _minTopRatio = 0.2;
+  static const double _maxTopRatio = 0.6;
 
   // @override
   // bool get debugMode => true;
@@ -34,6 +38,7 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
   Future<void> onLoad() async {
     await super.onLoad();
     anchor = Anchor.topLeft;
+    _random = Random();
     _positionForSize(game.size);
     addAll([top, bottom]);
   }
@@ -46,7 +51,8 @@ class PipeGroup extends PositionComponent with HasGameReference<FleppiGame> {
 
   void _positionForSize(Vector2 gameSize) {
     final availableHeight = gameSize.y - groundHeight;
-    final topHeight = availableHeight * topRatio;
+    final randomRatio = _minTopRatio + _random.nextDouble() * (_maxTopRatio - _minTopRatio);
+    final topHeight = availableHeight * randomRatio;
     final bottomHeight = availableHeight - topHeight - gap;
     _topHeight = topHeight;
 
